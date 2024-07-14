@@ -878,12 +878,6 @@ export interface ApiDishDish extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    eating_type: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     kcal: Attribute.Integer &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -914,13 +908,58 @@ export interface ApiDishDish extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    week_day: Attribute.Text &
+    price: Attribute.Decimal &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    price: Attribute.Decimal &
+    week_day: Attribute.Enumeration<
+      [
+        '\u043F\u043D',
+        '\u0432\u0442',
+        '\u0441\u0440',
+        '\u0447\u0442',
+        '\u043F\u0442',
+        '\u0441\u0431',
+        '\u0432\u0441'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    eating_type: Attribute.Enumeration<
+      [
+        '\u041F\u0435\u0440\u0432\u044B\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
+        '\u0412\u0442\u043E\u0440\u043E\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
+        '\u041E\u0431\u0435\u0434',
+        '\u041F\u043E\u043B\u0434\u043D\u0438\u043A',
+        '\u0423\u0436\u0438\u043D'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    program_type: Attribute.Enumeration<
+      [
+        '\u0423\u043B\u044C\u0442\u0440\u0430 \u043B\u0435\u0433\u043A\u043E\u0441\u0442\u044C',
+        '\u041B\u0435\u0433\u043A\u043E\u0441\u0442\u044C',
+        '\u0411\u0430\u043B\u0430\u043D\u0441',
+        '\u0410\u043A\u0442\u0438\u0432 \u0431\u0430\u043B\u0430\u043D\u0441',
+        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430',
+        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u041C\u0430\u043A\u0441\u0438'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    additionalDish: Attribute.Enumeration<['yes']> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
