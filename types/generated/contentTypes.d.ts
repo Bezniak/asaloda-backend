@@ -728,9 +728,15 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToMany',
       'api::review.review'
     >;
-    userlastname: Attribute.Text;
-    userphone: Attribute.Text & Attribute.Private;
+    userphone: Attribute.Text;
     userAddress: Attribute.Text & Attribute.Private;
+    bonuses: Attribute.Decimal;
+    referralPromoCode: Attribute.Text & Attribute.Unique;
+    orders: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::order.order'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -849,6 +855,146 @@ export interface ApiAdditionalProgramAdditionalProgram
   };
 }
 
+export interface ApiChangedDishChangedDish extends Schema.CollectionType {
+  collectionName: 'changed_dishes';
+  info: {
+    singularName: 'changed-dish';
+    pluralName: 'changed-dishes';
+    displayName: 'changedDish';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    main_img: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    dish_name: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    eating_type: Attribute.Enumeration<
+      [
+        '\u041F\u0435\u0440\u0432\u044B\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
+        '\u0412\u0442\u043E\u0440\u043E\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
+        '\u041E\u0431\u0435\u0434',
+        '\u041F\u043E\u043B\u0434\u043D\u0438\u043A',
+        '\u0423\u0436\u0438\u043D'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    kcal: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    dish_description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    squirrels: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    fats: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    carbohydrates: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    week_day: Attribute.Enumeration<
+      [
+        '\u043F\u043D',
+        '\u0432\u0442',
+        '\u0441\u0440',
+        '\u0447\u0442',
+        '\u043F\u0442',
+        '\u0441\u0431',
+        '\u0432\u0441'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    price: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    program_type: Attribute.Enumeration<
+      [
+        '\u0423\u043B\u044C\u0442\u0440\u0430 \u043B\u0435\u0433\u043A\u043E\u0441\u0442\u044C',
+        '\u041B\u0435\u0433\u043A\u043E\u0441\u0442\u044C',
+        '\u0411\u0430\u043B\u0430\u043D\u0441',
+        '\u0410\u043A\u0442\u0438\u0432 \u0431\u0430\u043B\u0430\u043D\u0441',
+        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430',
+        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u041C\u0430\u043A\u0441\u0438'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    date: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::changed-dish.changed-dish',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::changed-dish.changed-dish',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::changed-dish.changed-dish',
+      'oneToMany',
+      'api::changed-dish.changed-dish'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiDishDish extends Schema.CollectionType {
   collectionName: 'dishes';
   info: {
@@ -908,12 +1054,6 @@ export interface ApiDishDish extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    price: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     week_day: Attribute.Enumeration<
       [
         '\u043F\u043D',
@@ -959,12 +1099,17 @@ export interface ApiDishDish extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    additionalDish: Attribute.Enumeration<['yes']> &
+    date: Attribute.Date &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
+    orders: Attribute.Relation<
+      'api::dish.dish',
+      'manyToMany',
+      'api::order.order'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1034,6 +1179,147 @@ export interface ApiFaqFaq extends Schema.CollectionType {
   };
 }
 
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'Order';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    duration: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    programName: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    address: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    comment: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    excludeSaturday: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    excludeSunday: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    promoCode: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    promoCodeValue: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    totalPrice: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    user: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    deliveryTime: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    startDate: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    replacedDishes: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    userName: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    userPhone: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    userEmail: Attribute.Email &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    dishes: Attribute.Relation<
+      'api::order.order',
+      'manyToMany',
+      'api::dish.dish'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order.order'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiProgramProgram extends Schema.CollectionType {
   collectionName: 'programs';
   info: {
@@ -1063,7 +1349,7 @@ export interface ApiProgramProgram extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    daily_price: Attribute.Decimal &
+    one_day_price: Attribute.Decimal &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1091,30 +1377,6 @@ export interface ApiProgramProgram extends Schema.CollectionType {
         };
       }>;
     big_img: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    one_week_price: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    two_week_price: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    three_week_price: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    four_week_price: Attribute.Decimal &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1204,6 +1466,18 @@ export interface ApiProgramProgram extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    order_img: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bonuses_for_ordering: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1223,6 +1497,59 @@ export interface ApiProgramProgram extends Schema.CollectionType {
       'api::program.program',
       'oneToMany',
       'api::program.program'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiPromoCodePromoCode extends Schema.CollectionType {
+  collectionName: 'promo_codes';
+  info: {
+    singularName: 'promo-code';
+    pluralName: 'promo-codes';
+    displayName: 'promoCode';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    code: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    discount: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::promo-code.promo-code',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::promo-code.promo-code',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::promo-code.promo-code',
+      'oneToMany',
+      'api::promo-code.promo-code'
     >;
     locale: Attribute.String;
   };
@@ -1323,9 +1650,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::additional-program.additional-program': ApiAdditionalProgramAdditionalProgram;
+      'api::changed-dish.changed-dish': ApiChangedDishChangedDish;
       'api::dish.dish': ApiDishDish;
       'api::faq.faq': ApiFaqFaq;
+      'api::order.order': ApiOrderOrder;
       'api::program.program': ApiProgramProgram;
+      'api::promo-code.promo-code': ApiPromoCodePromoCode;
       'api::review.review': ApiReviewReview;
     }
   }
