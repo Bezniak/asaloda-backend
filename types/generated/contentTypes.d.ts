@@ -1054,22 +1054,6 @@ export interface ApiDishDish extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    week_day: Attribute.Enumeration<
-      [
-        '\u043F\u043D',
-        '\u0432\u0442',
-        '\u0441\u0440',
-        '\u0447\u0442',
-        '\u043F\u0442',
-        '\u0441\u0431',
-        '\u0432\u0441'
-      ]
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     eating_type: Attribute.Enumeration<
       [
         '\u041F\u0435\u0440\u0432\u044B\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
@@ -1105,6 +1089,13 @@ export interface ApiDishDish extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    changedDish: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
     orders: Attribute.Relation<
       'api::dish.dish',
       'manyToMany',
@@ -1196,18 +1187,16 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     };
   };
   attributes: {
-    duration: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    programName: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    dishes: Attribute.Relation<
+      'api::order.order',
+      'manyToMany',
+      'api::dish.dish'
+    >;
+    user: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     address: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1215,6 +1204,18 @@ export interface ApiOrderOrder extends Schema.CollectionType {
         };
       }>;
     comment: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    deliveryTime: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    duration: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1232,7 +1233,13 @@ export interface ApiOrderOrder extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    promoCode: Attribute.Boolean &
+    programName: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    promoCode: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1244,30 +1251,19 @@ export interface ApiOrderOrder extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    totalPrice: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    user: Attribute.Relation<
-      'api::order.order',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    deliveryTime: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     startDate: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    replacedDishes: Attribute.JSON &
+    endDate: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    totalPrice: Attribute.Decimal &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1279,23 +1275,18 @@ export interface ApiOrderOrder extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    userPhone: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     userEmail: Attribute.Email &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    dishes: Attribute.Relation<
-      'api::order.order',
-      'manyToMany',
-      'api::dish.dish'
-    >;
+    userPhone: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
