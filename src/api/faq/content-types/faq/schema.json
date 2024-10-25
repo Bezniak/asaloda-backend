@@ -42,7 +42,6 @@
       "enum": [
         "diet_nutrition",
         "order_payment",
-        "delivery",
         "cooking",
         "subscription"
       ]

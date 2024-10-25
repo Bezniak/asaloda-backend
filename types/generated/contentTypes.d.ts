@@ -777,7 +777,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     userphone: Attribute.Text;
     userAddress: Attribute.Text & Attribute.Private;
-    bonuses: Attribute.Decimal;
     referralPromoCode: Attribute.Text & Attribute.Unique;
     orders: Attribute.Relation<
       'plugin::users-permissions.user',
@@ -798,200 +797,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
-  };
-}
-
-export interface ApiAdditionalProgramAdditionalProgram
-  extends Schema.CollectionType {
-  collectionName: 'additional_programs';
-  info: {
-    singularName: 'additional-program';
-    pluralName: 'additional-programs';
-    displayName: 'Additional_program';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    name: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    desc: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::additional-program.additional-program',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::additional-program.additional-program',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::additional-program.additional-program',
-      'oneToMany',
-      'api::additional-program.additional-program'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiChangedDishChangedDish extends Schema.CollectionType {
-  collectionName: 'changed_dishes';
-  info: {
-    singularName: 'changed-dish';
-    pluralName: 'changed-dishes';
-    displayName: 'changedDish';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    main_img: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    dish_name: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    eating_type: Attribute.Enumeration<
-      [
-        '\u041F\u0435\u0440\u0432\u044B\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
-        '\u0412\u0442\u043E\u0440\u043E\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
-        '\u041E\u0431\u0435\u0434',
-        '\u041F\u043E\u043B\u0434\u043D\u0438\u043A',
-        '\u0423\u0436\u0438\u043D'
-      ]
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    kcal: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    dish_description: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    squirrels: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    fats: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    carbohydrates: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    week_day: Attribute.Enumeration<
-      [
-        '\u043F\u043D',
-        '\u0432\u0442',
-        '\u0441\u0440',
-        '\u0447\u0442',
-        '\u043F\u0442',
-        '\u0441\u0431',
-        '\u0432\u0441'
-      ]
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    price: Attribute.Decimal &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    program_type: Attribute.Enumeration<
-      [
-        '\u0423\u043B\u044C\u0442\u0440\u0430 \u043B\u0435\u0433\u043A\u043E\u0441\u0442\u044C',
-        '\u041B\u0435\u0433\u043A\u043E\u0441\u0442\u044C',
-        '\u0411\u0430\u043B\u0430\u043D\u0441',
-        '\u0410\u043A\u0442\u0438\u0432 \u0431\u0430\u043B\u0430\u043D\u0441',
-        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430',
-        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u041C\u0430\u043A\u0441\u0438'
-      ]
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    date: Attribute.Date &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::changed-dish.changed-dish',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::changed-dish.changed-dish',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::changed-dish.changed-dish',
-      'oneToMany',
-      'api::changed-dish.changed-dish'
-    >;
-    locale: Attribute.String;
   };
 }
 
@@ -1060,7 +865,15 @@ export interface ApiDishDish extends Schema.CollectionType {
         '\u0412\u0442\u043E\u0440\u043E\u0439 \u0437\u0430\u0432\u0442\u0440\u0430\u043A',
         '\u041E\u0431\u0435\u0434',
         '\u041F\u043E\u043B\u0434\u043D\u0438\u043A',
-        '\u0423\u0436\u0438\u043D'
+        '\u0423\u0436\u0438\u043D',
+        'Breakfast',
+        'Lunch',
+        'Dinner',
+        '\u041F\u0435\u0440\u0448\u044B \u0441\u043D\u044F\u0434\u0430\u043D\u0430\u043A',
+        '\u0414\u0440\u0443\u0433\u0456 \u0441\u043D\u044F\u0434\u0430\u043D\u0430\u043A',
+        '\u0410\u0431\u0435\u0434',
+        '\u041F\u0430\u0434\u0432\u044F\u0447\u043E\u0440\u0430\u043A',
+        '\u0412\u044F\u0447\u044D\u0440\u0430'
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -1075,7 +888,22 @@ export interface ApiDishDish extends Schema.CollectionType {
         '\u0411\u0430\u043B\u0430\u043D\u0441',
         '\u0410\u043A\u0442\u0438\u0432 \u0431\u0430\u043B\u0430\u043D\u0441',
         '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430',
-        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u041C\u0430\u043A\u0441\u0438'
+        '\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u041C\u0430\u043A\u0441\u0438',
+        '\u041D\u0430\u043F\u0438\u0442\u043A\u0438',
+        'Ultra light',
+        'Light',
+        'Balance',
+        'Active balance',
+        'Dynamics',
+        'Dynamics Maxi',
+        'Drinks',
+        '\u0423\u043B\u044C\u0442\u0440\u0430 \u043B\u0451\u0433\u043A\u0430\u0441\u0446\u044C',
+        '\u041B\u0451\u0433\u043A\u0430\u0441\u0446\u044C',
+        '\u0421\u0442\u0430\u043D\u0434\u0430\u0440\u0442 \u0431\u0430\u043B\u0430\u043D\u0441',
+        '\u0410\u043A\u0442\u044B\u045E \u0431\u0430\u043B\u0430\u043D\u0441',
+        '\u0414\u044B\u043D\u0430\u043C\u0456\u043A\u0430',
+        '\u0414\u044B\u043D\u0430\u043C\u0456\u043A\u0430 \u041C\u0430\u043A\u0441\u0456',
+        '\u041D\u0430\u043F\u043E\u0456'
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -1147,7 +975,7 @@ export interface ApiFaqFaq extends Schema.CollectionType {
         };
       }>;
     category_name: Attribute.Enumeration<
-      ['diet_nutrition', 'order_payment', 'delivery', 'cooking', 'subscription']
+      ['diet_nutrition', 'order_payment', 'cooking', 'subscription']
     > &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1240,12 +1068,6 @@ export interface ApiOrderOrder extends Schema.CollectionType {
         };
       }>;
     promoCode: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    promoCodeValue: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1346,64 +1168,7 @@ export interface ApiProgramProgram extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    img_collection: Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    welcome_title: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    bg_color: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     big_img: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    modalWindowTitle_1: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    modalWindowTitle_2: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    modalWindowTitle_3: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    modalWindowDescription_1: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    modalWindowDescription_2: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    modalWindowDescription_3: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1416,48 +1181,6 @@ export interface ApiProgramProgram extends Schema.CollectionType {
         };
       }>;
     title: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    openedModalWindowDesc_1: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    openedModalWindowDesc_2: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    openedModalWindowDesc_3: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    svg_1: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    svg_2: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    svg_3: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    order_img: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1640,8 +1363,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::additional-program.additional-program': ApiAdditionalProgramAdditionalProgram;
-      'api::changed-dish.changed-dish': ApiChangedDishChangedDish;
       'api::dish.dish': ApiDishDish;
       'api::faq.faq': ApiFaqFaq;
       'api::order.order': ApiOrderOrder;
