@@ -1,0 +1,10 @@
+version: 2
+update:
+  node_version: '18.17.0'  # Убедитесь, что версия Node.js соответствует указанной в package.json
+build:
+  commands:
+    - npm install           # Установка всех зависимостей
+    - npm run build         # Сборка приложения Strapi
+deploy:
+  commands:
+    - npm start             # Запуск приложения Strapi

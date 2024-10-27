@@ -1,0 +1,161 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dishes",
+  "info": {
+    "singularName": "dish",
+    "pluralName": "dishes",
+    "displayName": "Dish",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "main_img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "dish_name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "kcal": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer"
+    },
+    "dish_description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "squirrels": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "decimal"
+    },
+    "fats": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "decimal"
+    },
+    "carbohydrates": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "decimal"
+    },
+    "eating_type": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "Первый завтрак",
+        "Второй завтрак",
+        "Обед",
+        "Полдник",
+        "Ужин",
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Першы сняданак",
+        "Другі сняданак",
+        "Абед",
+        "Падвячорак",
+        "Вячэра"
+      ]
+    },
+    "program_type": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "Ультра легкость",
+        "Легкость",
+        "Баланс",
+        "Актив баланс",
+        "Динамика",
+        "Динамика Макси",
+        "Напитки",
+        "Ultra light",
+        "Light",
+        "Balance",
+        "Active balance",
+        "Dynamics",
+        "Dynamics Maxi",
+        "Drinks",
+        "Ультра лёгкасць",
+        "Лёгкасць",
+        "Стандарт баланс",
+        "Актыў баланс",
+        "Дынаміка",
+        "Дынаміка Максі",
+        "Напоі"
+      ]
+    },
+    "date": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "date"
+    },
+    "changedDish": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::order.order",
+      "inversedBy": "dishes"
+    }
+  }
+}
