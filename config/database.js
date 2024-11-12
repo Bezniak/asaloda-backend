@@ -90,3 +90,20 @@ module.exports = ({ env }) => {
     },
   };
 };
+
+
+
+
+// module.exports = ({ env }) => ({
+//   connection: {
+//     client: 'postgres',
+//     connection: {
+//       host: env('DATABASE_HOST', 'localhost'),
+//       port: env.int('DATABASE_PORT', 5432),
+//       database: env('DATABASE_NAME', 'asalodaf_asalodaFoodDataBase'),
+//       user: env('DATABASE_USERNAME', 'asalodaf_ivan'),
+//       password: env('DATABASE_PASSWORD', '7g95ivnat90!'),
+//       ssl: env.bool('DATABASE_SSL', false), // если требуется SSL
+//     },
+//   },
+// });

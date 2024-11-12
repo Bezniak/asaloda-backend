@@ -1,9 +1,0 @@
----
-deployment:
-  tasks:
-    - export NODE_ENV=production
-    - export PATH=$HOME/bin:/opt/cpanel/ea-nodejs18/bin:$PATH
-    - cd $REPO_DIR
-    - npm install --production
-    - npm run build
-    - pm2 restart strapi
